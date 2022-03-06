@@ -7,51 +7,42 @@ function parseCount(number) {
     
   function validateCount(number) {
     try {
-        const parsed = parseInt(number);
-        if (isNaN(parsed)) throw new Error("Невалидное значение");
-        return parsed;
-      }
-      catch(e) {
-        console.log('Ошибка произошла!');
-      }
+      const parsed = parseCount(number);
+      return parsed;
+    } catch(e) {
+      return e;
     }
+  }
   
   // Задача 2
     class Triangle {
     constructor(a, b, c) {
+      if(a > b + c || b > a + c || c > a + b){
+        throw new Error('Треугольник с такими сторонами не существует');
+      }
       this.a = a;
       this.b = b;
       this.c = c;
     }
   
-    getPerimeter(a, b, c) {
-      if (a > b + c || b > a + c || c > a + b) return 'Треугольник с такими сторонами не существует';
-      const p = (a + b + c) / 2;
-      return p;
+    getPerimeter() {
+      return this.a + this.b + this.c;
     }
   
     getArea(a, b, c) {
-      if (a > b + c || b > a + c || c > a + b) return 'Треугольник с такими сторонами не существует';
-      const s = (p * (p - a) * (p - b) * (p - c)) ** 0.5;
-      return s;
+      const halfP = this.getPerimeter() / 2;
+    return Number((Math.sqrt(halfP * (halfP - this.a) * (halfP - this.b) * (halfP - this.c))).toFixed(3));
     }
   }
   
-    function existenceTriangle(a, b, c) {
-      if (a > b + c || b > a + c || c > a + b) throw new Error("Треугольник с такими сторонами не существует"); {
-        return Error;
-    }
-  
-    function getTriangle() {
-      try {
-        return {
-          getArea: function() {return "Ошибка! Треугольник не существует"},
-          getPerimeter: function() {return "Ошибка! Треугольник не существует"}
-        }
-      }
-      catch(e) {
-        console.log('Ошибка произошла!');
-      }
+  function getTriangle(a, b, c) {
+    try {
+      return new Triangle(a, b, c);
+    } catch (e) {
+      return {
+        getArea: function() {return "Ошибка! Треугольник не существует"},
+        getPerimeter: function() {return "Ошибка! Треугольник не существует"}
+      }  
     }
   }
   
